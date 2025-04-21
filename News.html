@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Synapse Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background: url('bg2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #1a1a2e;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 25px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #011529;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+            position: relative;
+            padding: 0 15px;
+            animation: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #1a1a2e;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a1a2e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 30px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .news-category {
+            background: #011529;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        .news-date {
+            color: #666;
+        }
+
+        .news-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .news-excerpt {
+            color: #4a4a4a;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #011529;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .read-more::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #011529;
+            transition: width 0.3s ease;
+        }
+
+        .read-more:hover::after {
+            width: 100%;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .news-header h2 {
+            font-size: 2.5em;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .news-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>SYNAPSE LAB</h1>
+        <nav class="nav-links">
+            <a href="Home.html">Home</a>
+            <a href="Projects.html">Projects</a>
+            <a href="News.html" class="active">News</a>
+            <a href="Contact.html">Contact Us</a>
+        </nav>
+        <img src="logo.png" alt="Company Logo" class="logo">
+    </header>
+
+    <div class="news-container">
+        <div class="news-header">
+            <h2>Latest Updates</h2>
+            <p>Stay informed about our latest developments, achievements, and industry insights.</p>
+        </div>
+        
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="news1.jpg" alt="News Image" class="news-image">
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-category">Technology</span>
+                        <span class="news-date">March 15, 2024</span>
+                    </div>
+                    <h3 class="news-title">New AI Model Achieves Breakthrough in Natural Language Processing</h3>
+                    <p class="news-excerpt">Our research team has developed a revolutionary NLP model that significantly improves language understanding and generation capabilities.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="news2.jpg" alt="News Image" class="news-image">
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-category">Partnership</span>
+                        <span class="news-date">March 10, 2024</span>
+                    </div>
+                    <h3 class="news-title">Strategic Partnership with Leading Tech Company</h3>
+                    <p class="news-excerpt">We're excited to announce our new partnership that will bring innovative AI solutions to the market.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="news3.jpg" alt="News Image" class="news-image">
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-category">Innovation</span>
+                        <span class="news-date">March 5, 2024</span>
+                    </div>
+                    <h3 class="news-title">Launch of New Automation Platform</h3>
+                    <p class="news-excerpt">Our latest automation platform is now available, offering businesses unprecedented efficiency gains.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
